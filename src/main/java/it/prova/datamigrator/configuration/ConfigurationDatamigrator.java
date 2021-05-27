@@ -18,14 +18,14 @@ import javax.sql.DataSource;
 public class ConfigurationDatamigrator {
 
     @Bean(name = "vecchiodb")
-    @ConfigurationProperties("database1.datasource")
+    @ConfigurationProperties("spring.datasource.url")
     @Primary
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
 
     @Bean(name = "nuovodb")
-    @ConfigurationProperties("database2.datasource")
+    @ConfigurationProperties("spring.datasource2.url")
     public DataSource dataSource2() {
         return DataSourceBuilder.create().build();
     }
@@ -35,17 +35,16 @@ public class ConfigurationDatamigrator {
     @Autowired
     @Primary
     DataSourceTransactionManager tm1(@Qualifier("vecchiodb") DataSource datasource) {
-        DataSourceTransactionManager txm = new DataSourceTransactionManager(datasource);
-        return txm;
+        DataSourceTransactionManager txm1 = new DataSourceTransactionManager(datasource);
+        return txm1;
     }
 
     @Bean(name = "tmnuovo")
     @Autowired
     DataSourceTransactionManager tm2(@Qualifier("nuovodb") DataSource datasource) {
-        DataSourceTransactionManager txm = new DataSourceTransactionManager(datasource);
-        return txm;
+        DataSourceTransactionManager txm2 = new DataSourceTransactionManager(datasource);
+        return txm2;
     }
-
 
 
 //    Note that I have @Bean(name="datasource1") and @Bean(name="datasource2"),
@@ -62,8 +61,6 @@ public class ConfigurationDatamigrator {
 //    or
 //
 //    @Transactional("tm2")
-
-
 
 
 }

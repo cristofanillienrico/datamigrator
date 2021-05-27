@@ -1,13 +1,16 @@
 package it.prova.datamigrator.model.nuovo;
 
 
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
-@Entity
+@Qualifier("nuovodb")
+@Entity()
 @Table(name = "assicurato")
 public class Assicurato {
 
